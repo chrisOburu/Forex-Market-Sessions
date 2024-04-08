@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex-Market-Sessions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="container">
+        <h1>Forex Market Sessions</h1>
+        <div class="controls">
+            <div class="timezone">
+                <h2>Time Zone Selector</h2>
+                <div class="timezone-selector">
+                    <label for="region" style="font-size: larger;">Region:</label>
+                    <select name="region" id="region">
+                        <option value="Africa">Africa</option>
+                        <option value="America">America</option>
+                        <option value="Antarctica">Antarctica</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Atlantic">Atlantic</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Pacific">Pacific</option>
+                    </select>
+                    <label for="city" style="font-size: larger;">  City: </label>
+                    <select name="city" id="city">
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Bangalore">Bangalore</option>
+                    </select>
+                </div>
+            </div>
+            <div class="digital-clock">
+                <div>
+                  <span id="hour">00</span>
+                  <span class="text">Hours</span>
+                </div>
+                <div>
+                  <span id="minutes">00</span>
+                  <span class="text">Minutes</span>
+                </div>
+                <div>
+                  <span id="seconds">00</span>
+                  <span class="text">Seconds</span>
+                </div>
+                <div>
+                  <span id="ampm">AM</span>
+                </div>
+              </div>
+        </div>
+        <div class="major sessions">
+            <div class="session module" id="Sydney">
+                <div class="clock">
+                    <div class="numbers">
+                      <div class="twelve">12</div>
+                      <div class="three">3</div>
+                      <div class="six">6</div>
+                      <div class="nine">9</div>
+                    </div>
+                    <div class="arrows">
+                      <div class="hour"></div>
+                      <div class="minute"></div>
+                      <div class="second"></div>
+                    </div>
+                  </div>
+                <h3>Sydney</h3>
+            </div>
+            <div class="session module" id="Tokyo">
+                <div class="clock">
+                    <div class="numbers">
+                      <div class="twelve">12</div>
+                      <div class="three">3</div>
+                      <div class="six">6</div>
+                      <div class="nine">9</div>
+                    </div>
+                    <div class="arrows">
+                      <div class="hour"></div>
+                      <div class="minute"></div>
+                      <div class="second"></div>
+                    </div>
+                  </div>
+                <h3>Tokyo</h3>
+            </div>
+            <div class="session module" id="London">
+                <div class="clock">
+                    <div class="numbers">
+                      <div class="twelve">12</div>
+                      <div class="three">3</div>
+                      <div class="six">6</div>
+                      <div class="nine">9</div>
+                    </div>
+                    <div class="arrows">
+                      <div class="hour"></div>
+                      <div class="minute"></div>
+                      <div class="second"></div>
+                    </div>
+                  </div>
+                <h3>London</h3>
+            </div>
+            <div class="session module" id="NewYork">
+                <div class="clock">
+                    <div class="numbers">
+                      <div class="twelve">12</div>
+                      <div class="three">3</div>
+                      <div class="six">6</div>
+                      <div class="nine">9</div>
+                    </div>
+                    <div class="arrows">
+                      <div class="hour"></div>
+                      <div class="minute"></div>
+                      <div class="second"></div>
+                    </div>
+                  </div>
+                <h3>New York</h3>
+            </div>
+        </div>
+           
+        </div>
+    </section>
+
+    <script src="index.js"></script>
+</body>
+</html>
