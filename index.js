@@ -1,35 +1,68 @@
-const digital = document.querySelector(".digital-clock");
-const hourEl = digital.querySelector("#hour");
-const minuteEl = digital.querySelector("#minutes");
-const secondEl = digital.querySelector("#seconds");
-const ampmEl = digital.querySelector("#ampm");
+const sessionsTimezones = {
+    "Sydney": +10,
+    "Tokyo": +9,
+    "London": +1,
+    "New York": -4
+}
+
 
 let offset = 0;
-function updateClock() {
-    let h = new Date().getUTCHours()+offset;
+function updateClock(selector,utczone=0) {
+    const digital = document.querySelector(selector);
+    const hourEl = digital.querySelector("#hour");
+    const minuteEl = digital.querySelector("#minutes");
+   
+
+    if (selector !== ".digital-clock" ){
+        const dateArray = addHoursToDateTime(utczone);
+        digital.querySelector("#day").innerText = dateArray[0];
+        digital.querySelector("#month").innerText = dateArray[1];
+        digital.querySelector("#date").innerText = dateArray[2];
+    }
+    
+    if (selector === ".digital-clock" ){
+        const secondEl = digital.querySelector("#seconds");
+    }
+    const secondEl = digital.querySelector("#seconds");
+    const ampmEl = digital.querySelector("#ampm");
+
+    if (selector === ".digital-clock" ){
+        utczone = offset;
+    }
+
+    let h = new Date().getUTCHours()+utczone;
     let m = new Date().getUTCMinutes();
     let s = new Date().getUTCSeconds();
     let ampm = "AM";
-
-    if (h > 12) {
+    if (h > 24) {
+        h = h - 24;
+    }else if (h === 24) {
+        h = 12;
+    }else if (h > 12) {
         h = h - 12;
         ampm = "PM";
     }
 
     h = h < 10 ? "0" + h : h;
     m = m < 10 ? "0" + m : m;
-    s = s < 10 ? "0" + s : s;
+    
 
     hourEl.innerText = h;
     minuteEl.innerText = m;
-    secondEl.innerText = s;
+    
     ampmEl.innerText = ampm;
-    setTimeout(() => {
-        updateClock();
-    }, 1000);
+    if (selector === ".digital-clock" ){
+        s = s < 10 ? "0" + s : s;
+        secondEl.innerText = s;  
+    }
 }
 
-updateClock();
+setInterval(updateClock,1000,".digital-clock")
+setInterval(updateClock,1000,"#Sydney",sessionsTimezones["Sydney"])
+setInterval(updateClock,1000,"#Tokyo",sessionsTimezones["Tokyo"])
+setInterval(updateClock,1000,"#London",sessionsTimezones["London"])
+setInterval(updateClock,1000,"#NewYork",sessionsTimezones["New York"])
+
 
 const sydneyHours = document.querySelector("#Sydney").querySelector(".hour");
 const tokyoHours = document.querySelector("#Tokyo").querySelector(".hour");
@@ -42,12 +75,7 @@ const seconds = document.querySelectorAll(".second");
 
 function setDate() {
     const now = new Date();
-    const timezones = {
-        "Sydney": +10,
-        "Tokyo": +9,
-        "London": +1,
-        "New York": -4
-    }
+    
 
     const getSecond = now.getUTCSeconds();
     const getMinute = now.getUTCMinutes();
@@ -68,10 +96,10 @@ function setDate() {
     }
 
 
-    sydneyHours.style.transform = `rotate(${hourDegree(getHour + timezones["Sydney"])}deg)`;
-    tokyoHours.style.transform = `rotate(${hourDegree(getHour + timezones["Tokyo"])}deg)`;
-    londonHours.style.transform = `rotate(${hourDegree(getHour + timezones["London"])}deg)`;
-    newYorkHours.style.transform = `rotate(${hourDegree(getHour + timezones["New York"])}deg)`;
+    sydneyHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Sydney"])}deg)`;
+    tokyoHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Tokyo"])}deg)`;
+    londonHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["London"])}deg)`;
+    newYorkHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["New York"])}deg)`;
 }
 
 setInterval(setDate, 1000);
@@ -91,7 +119,7 @@ function fetchData() {
         .then((timeZones) => {
             const region = document.querySelector("#region").value;
             changeCity(timeZones, region);
-            check(timeZones);
+            changeRegion(timeZones);
             console.log("finished");
         })
         .catch((error) => {
@@ -136,7 +164,7 @@ function changeCity(timeZones, region) {
     }
 }
 
-function check(timeZones) {
+function changeRegion(timeZones) {
     const region = document.getElementById('region');
 
     region.addEventListener('click', () => {
@@ -169,8 +197,40 @@ function getOffset(timeZone) {
             const offsetSign = utcOffset[0] === '+' ? 1 : -1; // Determine the sign based on the first character
 
             offset = offsetSign * offsetHours;
+            console.log(offset);
         })
         .catch((error) => {
             console.log(error);
         });
 }
+
+function addHoursToDateTime(hoursToAdd) {
+    // Convert the input date/time string to a Date object
+    const dateTimeString = new Date(Date.now());
+    const dateTime = new Date(dateTimeString);
+  
+    // Add the specified number of hours
+    dateTime.setHours(dateTime.getHours() + hoursToAdd);
+  
+    // Format the date in the desired format: "Tue Apr. 9th"
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+    const dayOfWeek = daysOfWeek[dateTime.getDay()];
+    const monthOfYear = monthsOfYear[dateTime.getMonth()];
+    const dayOfMonth = dateTime.getDate();
+  
+    let daySuffix = 'th';
+    if (dayOfMonth === 1 || dayOfMonth === 21 || dayOfMonth === 31) {
+      daySuffix = 'st';
+    } else if (dayOfMonth === 2 || dayOfMonth === 22) {
+      daySuffix = 'nd';
+    } else if (dayOfMonth === 3 || dayOfMonth === 23) {
+      daySuffix = 'rd';
+    }
+  
+    return [dayOfWeek,`${monthOfYear}.` , `${dayOfMonth}${daySuffix}`];
+}
+
+  
+  

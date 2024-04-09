@@ -104,19 +104,19 @@ opacity: 0.8;
     background-color: #e6e6e6;
     border-radius: 5px;
     padding: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);*/
 }
 
 
 /* analog-clock */
-img {
+/*.fi {
 position: absolute;
 top: 60px;
 left: 50%;
 transform: translateX(-50%);
 width: 70px;
 z-index: 2;
-}
+}*/
 
 .clock {
 width: 90px;
@@ -134,7 +134,7 @@ position: relative;
 position: absolute;
 font-size: 10px;
 font-weight: bold;
-color: lightgoldenrodyellow;
+color: rgb(240, 240, 140);
 text-shadow: 1px 1px 2px rgba(0,0,0,.7);
 }
 
@@ -172,11 +172,11 @@ align-items: center;
 
 .arrows::before {
 content: "";
-width: 25px;
-height: 25px;
+width: 15px;
+height: 15px;
 background-color: darkgreen;
 border-radius: 50%;
-box-shadow: 1px 1px 2px rgba(0,0,0,.7);
+/*box-shadow: 1px 1px 2px rgba(0,0,0,.7);*/
 z-index: 4;
 }
 
@@ -209,7 +209,7 @@ transform: rotate(250deg);
     display: flex;
     color: #36454F;
     font-size: 15px;
-    font-style: italic;
+    /*font-style: italic;*/
 }
 
 .info-container{
@@ -221,4 +221,22 @@ transform: rotate(250deg);
 .date{
     font-size: 12px;
     color:  #555D50;
+    font-style: italic;
+}
+
+
+.fi.fi  {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.8rem; /* Adjust width as needed */
+    height: 2.8rem; /* Adjust height as needed */
+    border-radius: 1.4rem; /* To make it a circle */
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+    /*z-index: 100;*/
 }
