@@ -4,10 +4,11 @@ const minuteEl = digital.querySelector("#minutes");
 const secondEl = digital.querySelector("#seconds");
 const ampmEl = digital.querySelector("#ampm");
 
+let offset = 0;
 function updateClock() {
-    let h = new Date().getHours();
-    let m = new Date().getMinutes();
-    let s = new Date().getSeconds();
+    let h = new Date().getUTCHours()+offset;
+    let m = new Date().getUTCMinutes();
+    let s = new Date().getUTCSeconds();
     let ampm = "AM";
 
     if (h > 12) {
@@ -77,6 +78,8 @@ setInterval(setDate, 1000);
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchData();
+    updateDigitalClock()
+    //getOffset("Africa/Nairobi");
 });
 
 
@@ -119,7 +122,17 @@ function changeCity(timeZones, region) {
         const option = document.createElement("option");
         option.value = city;
         option.text = city;
+        // make the default city
+        
+        if (city === "Nairobi") option.selected = true;
         document.getElementById("city").appendChild(option);
+    }
+
+    if (africaCities.includes("Nairobi")) {
+        getOffset("Africa/Nairobi");
+    }else{
+        const subUrl = region +"/" + africaCities[0];
+        getOffset(subUrl);
     }
 }
 
@@ -130,4 +143,34 @@ function check(timeZones) {
         const selected = region.options[region.selectedIndex].text;
         changeCity(timeZones, selected);
     })
+}
+
+// function to change digital clock time to timezones
+
+function updateDigitalClock() {
+    const region = document.querySelector("#region");
+    const city = document.querySelector("#city");
+
+    city.addEventListener("change", () => {
+        timeZone = region.value + "/" + city.value;
+
+        getOffset(timeZone);
+            
+        })
+}
+
+function getOffset(timeZone) {
+    const url = `https://worldtimeapi.org/api/timezone/${timeZone}`;
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            const utcOffset = data.utc_offset;
+            const offsetHours = parseInt(utcOffset.substring(1, 3)); // Extract hours part and convert to integer
+            const offsetSign = utcOffset[0] === '+' ? 1 : -1; // Determine the sign based on the first character
+
+            offset = offsetSign * offsetHours;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }

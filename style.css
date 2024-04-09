@@ -100,7 +100,7 @@ opacity: 0.8;
     margin: 10px;
     font-size: 20px;
     font-weight: bold;
-    color: #29bc1e;
+    color: #0C0404;
     background-color: #e6e6e6;
     border-radius: 5px;
     padding: 10px;
@@ -201,4 +201,24 @@ transform: rotate(30deg);
 background-color: goldenrod;
 transform: rotate(250deg);
 
+}
+
+/*session clocks*/
+
+.session-clock{
+    display: flex;
+    color: #36454F;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.info-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.date{
+    font-size: 12px;
+    color:  #555D50;
 }
