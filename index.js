@@ -128,7 +128,6 @@ function fetchData() {
             const region = document.querySelector("#region").value;
             changeCity(timeZones, region);
             changeRegion(timeZones);
-            console.log("finished");
         })
         .catch((error) => {
             console.log(error);
@@ -205,7 +204,7 @@ function getOffset(timeZone) {
             const offsetSign = utcOffset[0] === '+' ? 1 : -1; // Determine the sign based on the first character
 
             offset = offsetSign * offsetHours;
-            console.log(offset);
+            //console.log(offset);
         })
         .catch((error) => {
             console.log(error);
@@ -217,10 +216,10 @@ function addHoursToDateTime(hoursToAdd) {
         return new Date(Date.now());
     }
     const dateTime = getUTCDate();
-    console.log(dateTime)
+    //console.log(dateTime)
     // Add the specified number of hours
     dateTime.setHours(dateTime.getHours() + hoursToAdd);
-    console.log(dateTime)
+    //console.log(dateTime)
     // Format the date in the desired format: "Tue Apr. 9th"
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -244,16 +243,16 @@ function addHoursToDateTime(hoursToAdd) {
 
   
 function createTwentyFourHourClock() {
-    var gridContainer = document.querySelector(".grid-container");
-    var grid = document.createElement("div");
+    let gridContainer = document.querySelector(".grid-container");
+    let grid = document.createElement("div");
     grid.className = "grid";
     gridContainer.appendChild(grid);
 
-    var containerWidth = gridContainer.clientWidth;
-    var cellWidth = containerWidth / 24;
+    let containerWidth = gridContainer.clientWidth;
+    let cellWidth = containerWidth / 24;
 
-    for (var i = 0; i < 24; i++) {
-    var cell = document.createElement("div");
+    for (let i = 0; i < 24; i++) {
+    let cell = document.createElement("div");
     cell.className = "grid-cell";
     cell.style.width = cellWidth + "px";
     cell.textContent = i;
@@ -262,15 +261,41 @@ function createTwentyFourHourClock() {
 }
 
 function createGrids() {
-    var gridContainer = document.querySelector(".grid-table");
-    var containerWidth = gridContainer.clientWidth;
-    var cellWidth = containerWidth / 24;
+    let gridContainer = document.querySelector(".grid-table");
+    let containerWidth = gridContainer.clientWidth;
+    let cellWidth = containerWidth / 24;
 
-    for (var i = 0; i < 24; i++) {
-    var cell = document.createElement("div");
+    for (let i = 0; i < 24; i++) {
+    let cell = document.createElement("div");
     cell.className = "grid-item";
     cell.style.width = cellWidth-1.5+ "px";
-    //cell.textContent = i;
     gridContainer.appendChild(cell);
     }
 }
+
+
+
+
+setInterval(movePointer, 6000);
+
+function movePointer() {
+    table = document.querySelector(".grid-table");
+    let recTable = table.getBoundingClientRect();
+    const pointer = document.getElementById("line");
+    const currentTime = new Date();
+    const hours = parseInt(document.querySelector(".digital-clock").querySelector("#hour").textContent);
+    const minutes = parseInt(document.querySelector(".digital-clock").querySelector("#minutes").textContent);
+    const ampm = document.querySelector(".digital-clock").querySelector("#ampm").textContent;
+    let totalMinutes = hours * 60 + minutes;
+    if (ampm === "PM") {
+        totalMinutes += 12 * 60;
+    }
+    const pixels = (totalMinutes / ( 24 * 60)) * (recTable.width) +recTable.left-280;
+    pointer.style.left = `${pixels}px`;
+
+  
+    //pointer.style.left = `${pixels+rect.left}px`;
+  
+    //setTimeout(movePointer, 1000); // Update every minute
+  }
+  

@@ -249,10 +249,12 @@ img{
     margin-top: -480px;
     height: 470px;
     margin-right: 20px;
-    background-color: white;
+    background-color: rgb(7, 7, 7);
     opacity: 0.3;
     border-radius: 10px;
     border-color: #212121;
+    width: auto;
+    
 }
 
 .grid-item {
@@ -268,6 +270,7 @@ img{
     overflow: hidden;
     white-space: nowrap;
     margin-left: 280px;
+    width: auto;
 }
 
 .grid {
@@ -282,4 +285,17 @@ img{
     width: 50px;
     text-align: left;
     line-height: 20px;
+}
+
+.line {
+    width: 2px;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    margin-top: -480px;
+    margin-left: 280px;
+    height: 500px;
+    z-index: 10;
+    overflow: hidden;
+
 }
