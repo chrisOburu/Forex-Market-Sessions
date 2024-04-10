@@ -30,15 +30,18 @@ function updateClock(selector,utczone=0) {
         utczone = offset;
     }
 
-    let h = new Date().getUTCHours()+utczone;
+    const hourAhead = addHoursToDateTime(utczone);
+    let h = hourAhead[3];
     let m = new Date().getUTCMinutes();
     let s = new Date().getUTCSeconds();
     let ampm = "AM";
-    if (h > 24) {
-        h = h - 24;
-    }else if (h === 24) {
+    if (h === 24){
         h = 12;
-    }else if (h > 12) {
+        ampm = "AM";
+    }else if (h ===12) {
+        ampm = "PM";
+    }
+    else if (h > 12) {
         h = h - 12;
         ampm = "PM";
     }
@@ -205,20 +208,22 @@ function getOffset(timeZone) {
 }
 
 function addHoursToDateTime(hoursToAdd) {
-    // Convert the input date/time string to a Date object
-    const dateTimeString = new Date(Date.now());
-    const dateTime = new Date(dateTimeString);
-  
+    function getUTCDate() {
+        return new Date(Date.now());
+    }
+    const dateTime = getUTCDate();
+    console.log(dateTime)
     // Add the specified number of hours
     dateTime.setHours(dateTime.getHours() + hoursToAdd);
-  
+    console.log(dateTime)
     // Format the date in the desired format: "Tue Apr. 9th"
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   
-    const dayOfWeek = daysOfWeek[dateTime.getDay()];
-    const monthOfYear = monthsOfYear[dateTime.getMonth()];
-    const dayOfMonth = dateTime.getDate();
+    const dayOfWeek = daysOfWeek[dateTime.getUTCDay()];
+    const monthOfYear = monthsOfYear[dateTime.getUTCMonth()];
+    const dayOfMonth = dateTime.getUTCDate();
+    const hour = dateTime.getUTCHours();
   
     let daySuffix = 'th';
     if (dayOfMonth === 1 || dayOfMonth === 21 || dayOfMonth === 31) {
@@ -229,8 +234,7 @@ function addHoursToDateTime(hoursToAdd) {
       daySuffix = 'rd';
     }
   
-    return [dayOfWeek,`${monthOfYear}.` , `${dayOfMonth}${daySuffix}`];
+    return [dayOfWeek,`${monthOfYear}.` , `${dayOfMonth}${daySuffix}`, hour];
 }
 
-  
   

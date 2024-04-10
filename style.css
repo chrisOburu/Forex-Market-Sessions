@@ -136,6 +136,7 @@ font-size: 10px;
 font-weight: bold;
 color: rgb(240, 240, 140);
 text-shadow: 1px 1px 2px rgba(0,0,0,.7);
+z-index: 3;
 }
 
 .twelve {
@@ -224,19 +225,17 @@ transform: rotate(250deg);
     font-style: italic;
 }
 
-
-.fi.fi  {
+/*clock image*/
+img{
     display: block;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 2.8rem; /* Adjust width as needed */
-    height: 2.8rem; /* Adjust height as needed */
-    border-radius: 1.4rem; /* To make it a circle */
+    border-radius: 50%; /* To make it a circle */
     background-size: contain;
     background-position: 50%;
     background-repeat: no-repeat;
-    opacity: 0.6;
-    /*z-index: 100;*/
+    opacity: 0.9;
+
 }
