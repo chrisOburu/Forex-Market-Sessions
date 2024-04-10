@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", () => {
+    fetchData();
+    updateDigitalClock();
+    createTwentyFourHourClock();
+    createGrids();
+    //getOffset("Africa/Nairobi");
+});
+
+
+
 const sessionsTimezones = {
     "Sydney": +10,
     "Tokyo": +9,
@@ -107,11 +117,6 @@ function setDate() {
 
 setInterval(setDate, 1000);
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetchData();
-    updateDigitalClock()
-    //getOffset("Africa/Nairobi");
-});
 
 
 // fetch data from API
@@ -238,3 +243,34 @@ function addHoursToDateTime(hoursToAdd) {
 }
 
   
+function createTwentyFourHourClock() {
+    var gridContainer = document.querySelector(".grid-container");
+    var grid = document.createElement("div");
+    grid.className = "grid";
+    gridContainer.appendChild(grid);
+
+    var containerWidth = gridContainer.clientWidth;
+    var cellWidth = containerWidth / 24;
+
+    for (var i = 0; i < 24; i++) {
+    var cell = document.createElement("div");
+    cell.className = "grid-cell";
+    cell.style.width = cellWidth + "px";
+    cell.textContent = i;
+    grid.appendChild(cell);
+    }
+}
+
+function createGrids() {
+    var gridContainer = document.querySelector(".grid-table");
+    var containerWidth = gridContainer.clientWidth;
+    var cellWidth = containerWidth / 24;
+
+    for (var i = 0; i < 24; i++) {
+    var cell = document.createElement("div");
+    cell.className = "grid-item";
+    cell.style.width = cellWidth-1.5+ "px";
+    //cell.textContent = i;
+    gridContainer.appendChild(cell);
+    }
+}

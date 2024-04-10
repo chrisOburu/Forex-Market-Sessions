@@ -239,3 +239,47 @@ img{
     opacity: 0.9;
 
 }
+
+
+.grid-table{
+    display: grid;
+    grid-template-columns: repeat(24, 1fr); 
+    grid-gap: 2px; 
+    margin-left: 280px;
+    margin-top: -480px;
+    height: 470px;
+    margin-right: 20px;
+    background-color: white;
+    opacity: 0.3;
+    border-radius: 10px;
+    border-color: #212121;
+}
+
+.grid-item {
+    background-color: #a5a1a1;
+    text-align: left;
+    border-radius: 5px;
+
+}
+
+
+.grid-container {
+    overflow-x: hidden;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: 280px;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    display: inline-block;
+}
+
+.grid-cell {
+    display: inline-block;
+    height: 100%;
+    width: 50px;
+    text-align: left;
+    line-height: 20px;
+}
