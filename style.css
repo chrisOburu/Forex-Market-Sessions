@@ -299,3 +299,18 @@ img{
     overflow: hidden;
 
 }
+
+/*session range*/
+
+.session-range{
+    background-color: #29bc1e;
+    z-index: 5;
+    height: 50px;
+    width: 50px;
+    /*margin: auto;*/
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #e6e6e6;
+    text-align: center;
+    padding: auto;
+}

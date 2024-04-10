@@ -3,16 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
     updateDigitalClock();
     createTwentyFourHourClock();
     createGrids();
+    getSessionRange();
     //getOffset("Africa/Nairobi");
 });
 
 
 
 const sessionsTimezones = {
-    "Sydney": +10,
-    "Tokyo": +9,
-    "London": +1,
-    "New York": -4
+    "Sydney": [10,7],
+    "Tokyo": [9,9],
+    "London": [1,8],
+    "New York": [-4,8]
 }
 
 
@@ -71,10 +72,10 @@ function updateClock(selector,utczone=0) {
 }
 
 setInterval(updateClock,1000,".digital-clock")
-setInterval(updateClock,1000,"#Sydney",sessionsTimezones["Sydney"])
-setInterval(updateClock,1000,"#Tokyo",sessionsTimezones["Tokyo"])
-setInterval(updateClock,1000,"#London",sessionsTimezones["London"])
-setInterval(updateClock,1000,"#NewYork",sessionsTimezones["New York"])
+setInterval(updateClock,1000,"#Sydney",sessionsTimezones["Sydney"][0])
+setInterval(updateClock,1000,"#Tokyo",sessionsTimezones["Tokyo"][0])
+setInterval(updateClock,1000,"#London",sessionsTimezones["London"][0])
+setInterval(updateClock,1000,"#NewYork",sessionsTimezones["New York"][0])
 
 
 const sydneyHours = document.querySelector("#Sydney").querySelector(".hour");
@@ -109,10 +110,10 @@ function setDate() {
     }
 
 
-    sydneyHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Sydney"])}deg)`;
-    tokyoHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Tokyo"])}deg)`;
-    londonHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["London"])}deg)`;
-    newYorkHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["New York"])}deg)`;
+    sydneyHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Sydney"][0])}deg)`;
+    tokyoHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Tokyo"][0])}deg)`;
+    londonHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["London"][0])}deg)`;
+    newYorkHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["New York"][0])}deg)`;
 }
 
 setInterval(setDate, 1000);
@@ -290,7 +291,7 @@ function movePointer() {
     if (ampm === "PM") {
         totalMinutes += 12 * 60;
     }
-    const pixels = (totalMinutes / ( 24 * 60)) * (recTable.width) +recTable.left-280;
+    const pixels = (totalMinutes / ( 24 * 60)) * (recTable.width) +recTable.left-280+10;
     pointer.style.left = `${pixels}px`;
 
   
@@ -299,3 +300,35 @@ function movePointer() {
     //setTimeout(movePointer, 1000); // Update every minute
   }
   
+function getSessionRange() {
+    let gridContainer = document.querySelector(".grid-table");
+    let containerWidth = gridContainer.getBoundingClientRect().width;
+    const containerLeft = gridContainer.getBoundingClientRect().left;
+    let cellWidth = containerWidth *9/ 24;
+    let sessions = document.querySelectorAll(".session-range");
+    for (let i = 0; i < sessions.length; i++) {
+        sessions[i].style.width = cellWidth + "px";
+    }
+
+    function calculateRange(tzone,id,selctor,index,myZone=3) {
+        const timezone =  tzone[id][0];
+        const open = tzone[id][1];
+    
+        const openTime = myZone- timezone + open;
+        
+        auPixels = openTime/24;
+
+        const infoContainer = document.querySelectorAll(".info-container")[index];
+        const infoContainerWidth = infoContainer.getBoundingClientRect().right;
+        const australia = document.querySelector(selctor);
+        const difference = auPixels*containerWidth + containerLeft-infoContainerWidth;
+        australia.style.marginLeft = `${difference}px`;
+    }
+
+
+    calculateRange(sessionsTimezones,"Sydney","#Australia",0);
+    calculateRange(sessionsTimezones,"Tokyo","#Japan",1);
+    calculateRange(sessionsTimezones,"London","#UK",2);
+    calculateRange(sessionsTimezones,"New York","#USA",3);
+  }
+
