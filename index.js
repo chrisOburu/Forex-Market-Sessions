@@ -104,7 +104,7 @@ function setDate() {
     for (let second of seconds) {
         second.style.transform = `rotate(${secondDegree}deg)`
     }
-    
+
     for (let minute of minutes) {
         minute.style.transform = `rotate(${minuteDegree}deg)`
     }
@@ -274,7 +274,7 @@ function createGrids() {
     }
 }
 
-setInterval(movePointer, 6000);
+setInterval(movePointer, 1000);
 
 function movePointer() {
     table = document.querySelector(".grid-table");
@@ -337,8 +337,8 @@ function getSessionRange() {
     }
 
 
-    calculateRange(sessionsTimezones, "Sydney", "#Australia", 0, "#ce2e71");
-    calculateRange(sessionsTimezones, "Tokyo", "#Japan", 1, "#6b22b3");
+    calculateRange(sessionsTimezones, "Sydney", "#Australia", 0, "#6b22b3");
+    calculateRange(sessionsTimezones, "Tokyo", "#Japan", 1, "#ce2e71");
     calculateRange(sessionsTimezones, "London", "#UK", 2, "#0bbfff");
     calculateRange(sessionsTimezones, "New York", "#USA", 3, "#56c51f");
 }
