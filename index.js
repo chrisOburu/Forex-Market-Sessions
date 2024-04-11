@@ -285,7 +285,7 @@ function movePointer() {
     const minutes = parseInt(document.querySelector(".digital-clock").querySelector("#minutes").textContent);
     const ampm = document.querySelector(".digital-clock").querySelector("#ampm").textContent;
     let totalMinutes = hours * 60 + minutes;
-    if (ampm === "PM") {
+    if (ampm === "PM" && hours !== 12) {
         totalMinutes += 12 * 60;
     }
     const pixels = (totalMinutes / (24 * 60)) * (recTable.width) + recTable.left - 280 + 2;
