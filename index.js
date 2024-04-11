@@ -10,34 +10,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 const sessionsTimezones = {
-    "Sydney": [10,7],
-    "Tokyo": [9,9],
-    "London": [1,8],
-    "New York": [-4,8]
+    "Sydney": [10, 7],
+    "Tokyo": [9, 9],
+    "London": [1, 8],
+    "New York": [-4, 8]
 }
 
 
 let offset = 0;
-function updateClock(selector,utczone=0) {
+function updateClock(selector, utczone = 0) {
     const digital = document.querySelector(selector);
     const hourEl = digital.querySelector("#hour");
     const minuteEl = digital.querySelector("#minutes");
-   
 
-    if (selector !== ".digital-clock" ){
+
+    if (selector !== ".digital-clock") {
         const dateArray = addHoursToDateTime(utczone);
         digital.querySelector("#day").innerText = dateArray[0];
         digital.querySelector("#month").innerText = dateArray[1];
         digital.querySelector("#date").innerText = dateArray[2];
     }
-    
-    if (selector === ".digital-clock" ){
+
+    if (selector === ".digital-clock") {
         const secondEl = digital.querySelector("#seconds");
     }
     const secondEl = digital.querySelector("#seconds");
     const ampmEl = digital.querySelector("#ampm");
 
-    if (selector === ".digital-clock" ){
+    if (selector === ".digital-clock") {
         utczone = offset;
     }
 
@@ -46,10 +46,10 @@ function updateClock(selector,utczone=0) {
     let m = new Date().getUTCMinutes();
     let s = new Date().getUTCSeconds();
     let ampm = "AM";
-    if (h === 24){
+    if (h === 24) {
         h = 12;
         ampm = "AM";
-    }else if (h ===12) {
+    } else if (h === 12) {
         ampm = "PM";
     }
     else if (h > 12) {
@@ -59,23 +59,23 @@ function updateClock(selector,utczone=0) {
 
     h = h < 10 ? "0" + h : h;
     m = m < 10 ? "0" + m : m;
-    
+
 
     hourEl.innerText = h;
     minuteEl.innerText = m;
-    
+
     ampmEl.innerText = ampm;
-    if (selector === ".digital-clock" ){
+    if (selector === ".digital-clock") {
         s = s < 10 ? "0" + s : s;
-        secondEl.innerText = s;  
+        secondEl.innerText = s;
     }
 }
 
-setInterval(updateClock,1000,".digital-clock")
-setInterval(updateClock,1000,"#Sydney",sessionsTimezones["Sydney"][0])
-setInterval(updateClock,1000,"#Tokyo",sessionsTimezones["Tokyo"][0])
-setInterval(updateClock,1000,"#London",sessionsTimezones["London"][0])
-setInterval(updateClock,1000,"#NewYork",sessionsTimezones["New York"][0])
+setInterval(updateClock, 1000, ".digital-clock")
+setInterval(updateClock, 1000, "#Sydney", sessionsTimezones["Sydney"][0])
+setInterval(updateClock, 1000, "#Tokyo", sessionsTimezones["Tokyo"][0])
+setInterval(updateClock, 1000, "#London", sessionsTimezones["London"][0])
+setInterval(updateClock, 1000, "#NewYork", sessionsTimezones["New York"][0])
 
 
 const sydneyHours = document.querySelector("#Sydney").querySelector(".hour");
@@ -89,7 +89,7 @@ const seconds = document.querySelectorAll(".second");
 
 function setDate() {
     const now = new Date();
-    
+
 
     const getSecond = now.getUTCSeconds();
     const getMinute = now.getUTCMinutes();
@@ -104,7 +104,7 @@ function setDate() {
     for (let second of seconds) {
         second.style.transform = `rotate(${secondDegree}deg)`
     }
-    //second.style.transform = `rotate(${secondDegree}deg)`;
+    
     for (let minute of minutes) {
         minute.style.transform = `rotate(${minuteDegree}deg)`
     }
@@ -159,15 +159,15 @@ function changeCity(timeZones, region) {
         option.value = city;
         option.text = city;
         // make the default city
-        
+
         if (city === "Nairobi") option.selected = true;
         document.getElementById("city").appendChild(option);
     }
 
     if (africaCities.includes("Nairobi")) {
         getOffset("Africa/Nairobi");
-    }else{
-        const subUrl = region +"/" + africaCities[0];
+    } else {
+        const subUrl = region + "/" + africaCities[0];
         getOffset(subUrl);
     }
 }
@@ -191,8 +191,8 @@ function updateDigitalClock() {
         timeZone = region.value + "/" + city.value;
 
         getOffset(timeZone);
-            
-        })
+
+    })
 }
 
 function getOffset(timeZone) {
@@ -224,25 +224,25 @@ function addHoursToDateTime(hoursToAdd) {
     // Format the date in the desired format: "Tue Apr. 9th"
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
+
     const dayOfWeek = daysOfWeek[dateTime.getUTCDay()];
     const monthOfYear = monthsOfYear[dateTime.getUTCMonth()];
     const dayOfMonth = dateTime.getUTCDate();
     const hour = dateTime.getUTCHours();
-  
+
     let daySuffix = 'th';
     if (dayOfMonth === 1 || dayOfMonth === 21 || dayOfMonth === 31) {
-      daySuffix = 'st';
+        daySuffix = 'st';
     } else if (dayOfMonth === 2 || dayOfMonth === 22) {
-      daySuffix = 'nd';
+        daySuffix = 'nd';
     } else if (dayOfMonth === 3 || dayOfMonth === 23) {
-      daySuffix = 'rd';
+        daySuffix = 'rd';
     }
-  
-    return [dayOfWeek,`${monthOfYear}.` , `${dayOfMonth}${daySuffix}`, hour];
+
+    return [dayOfWeek, `${monthOfYear}.`, `${dayOfMonth}${daySuffix}`, hour];
 }
 
-  
+
 function createTwentyFourHourClock() {
     let gridContainer = document.querySelector(".grid-container");
     let grid = document.createElement("div");
@@ -253,11 +253,11 @@ function createTwentyFourHourClock() {
     let cellWidth = containerWidth / 24;
 
     for (let i = 0; i < 24; i++) {
-    let cell = document.createElement("div");
-    cell.className = "grid-cell";
-    cell.style.width = cellWidth + "px";
-    cell.textContent = i;
-    grid.appendChild(cell);
+        let cell = document.createElement("div");
+        cell.className = "grid-cell";
+        cell.style.width = cellWidth + "px";
+        cell.textContent = i;
+        grid.appendChild(cell);
     }
 }
 
@@ -267,15 +267,12 @@ function createGrids() {
     let cellWidth = containerWidth / 24;
 
     for (let i = 0; i < 24; i++) {
-    let cell = document.createElement("div");
-    cell.className = "grid-item";
-    cell.style.width = cellWidth-1.5+ "px";
-    gridContainer.appendChild(cell);
+        let cell = document.createElement("div");
+        cell.className = "grid-item";
+        cell.style.width = cellWidth - 1.5 + "px";
+        gridContainer.appendChild(cell);
     }
 }
-
-
-
 
 setInterval(movePointer, 6000);
 
@@ -291,44 +288,58 @@ function movePointer() {
     if (ampm === "PM") {
         totalMinutes += 12 * 60;
     }
-    const pixels = (totalMinutes / ( 24 * 60)) * (recTable.width) +recTable.left-280+10;
+    const pixels = (totalMinutes / (24 * 60)) * (recTable.width) + recTable.left - 280 + 2;
     pointer.style.left = `${pixels}px`;
+}
 
-  
-    //pointer.style.left = `${pixels+rect.left}px`;
-  
-    //setTimeout(movePointer, 1000); // Update every minute
-  }
-  
 function getSessionRange() {
     let gridContainer = document.querySelector(".grid-table");
     let containerWidth = gridContainer.getBoundingClientRect().width;
     const containerLeft = gridContainer.getBoundingClientRect().left;
-    let cellWidth = containerWidth *9/ 24;
+    let cellWidth = containerWidth * 9 / 24;
     let sessions = document.querySelectorAll(".session-range");
     for (let i = 0; i < sessions.length; i++) {
         sessions[i].style.width = cellWidth + "px";
     }
 
-    function calculateRange(tzone,id,selctor,index,myZone=3) {
-        const timezone =  tzone[id][0];
+    function calculateRange(tzone, id, selctor, index, colour, myZone = 3) {
+        const timezone = tzone[id][0];
         const open = tzone[id][1];
-    
-        const openTime = myZone- timezone + open;
-        
-        auPixels = openTime/24;
+
+        const openTime = myZone - timezone + open;
+
+        auPixels = openTime / 24;
 
         const infoContainer = document.querySelectorAll(".info-container")[index];
         const infoContainerWidth = infoContainer.getBoundingClientRect().right;
-        const australia = document.querySelector(selctor);
-        const difference = auPixels*containerWidth + containerLeft-infoContainerWidth;
-        australia.style.marginLeft = `${difference}px`;
+        const country = document.querySelector(selctor);
+        const difference = auPixels * containerWidth + containerLeft - infoContainerWidth;
+        country.style.marginLeft = `${difference}px`;
+        country.style.transform = `translateX(0%)`;
+        country.style.left = `${difference}px`;
+        country.style.background = colour;
+
+        function getOpeningHours() {
+            const hourAhead = addHoursToDateTime(timezone)[3];
+            const close = open + 8;
+
+            if (open <= hourAhead && close >= hourAhead) {
+                return "OPEN";
+            } else {
+                return "CLOSED";
+            }
+
+        }
+
+        const sessionState = getOpeningHours();
+        country.textContent = sessionState;
+
     }
 
 
-    calculateRange(sessionsTimezones,"Sydney","#Australia",0);
-    calculateRange(sessionsTimezones,"Tokyo","#Japan",1);
-    calculateRange(sessionsTimezones,"London","#UK",2);
-    calculateRange(sessionsTimezones,"New York","#USA",3);
-  }
+    calculateRange(sessionsTimezones, "Sydney", "#Australia", 0, "#ce2e71");
+    calculateRange(sessionsTimezones, "Tokyo", "#Japan", 1, "#6b22b3");
+    calculateRange(sessionsTimezones, "London", "#UK", 2, "#0bbfff");
+    calculateRange(sessionsTimezones, "New York", "#USA", 3, "#56c51f");
+}
 
