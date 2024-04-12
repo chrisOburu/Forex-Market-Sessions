@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     createTwentyFourHourClock();
     createGrids();
     getSessionRange();
+    movePointer();
     //getOffset("Africa/Nairobi");
 });
 
@@ -101,13 +102,15 @@ function setDate() {
         return (getHour / 12) * 360;
     }
 
-    for (let second of seconds) {
-        second.style.transform = `rotate(${secondDegree}deg)`
-    }
 
-    for (let minute of minutes) {
+    seconds.forEach((second) => {
+        second.style.transform = `rotate(${secondDegree}deg)`
+    });
+
+
+    minutes.forEach((minute) => {
         minute.style.transform = `rotate(${minuteDegree}deg)`
-    }
+    });
 
 
     sydneyHours.style.transform = `rotate(${hourDegree(getHour + sessionsTimezones["Sydney"][0])}deg)`;
@@ -138,15 +141,14 @@ function fetchData() {
 function changeCity(timeZones, region) {
     const africaCities = [];
 
-    // Iterate through the array of time zones
-    for (const timeZone of timeZones) {
-        // Check if the time zone starts with "Africa/"
+    timeZones.forEach((timeZone) => {
         if (timeZone.startsWith(region)) {
-            // Extract the city name by removing "Africa/" from the beginning
             const city = timeZone.substring((region + "/").length);
             africaCities.push(city);
         }
-    }
+    });
+
+
     const city = document.querySelector("#city");
 
     // Clear the existing options
@@ -217,10 +219,9 @@ function addHoursToDateTime(hoursToAdd) {
         return new Date(Date.now());
     }
     const dateTime = getUTCDate();
-    //console.log(dateTime)
+    
     // Add the specified number of hours
     dateTime.setHours(dateTime.getHours() + hoursToAdd);
-    //console.log(dateTime)
     // Format the date in the desired format: "Tue Apr. 9th"
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -274,7 +275,7 @@ function createGrids() {
     }
 }
 
-setInterval(movePointer, 1000);
+
 
 function movePointer() {
     table = document.querySelector(".grid-table");
@@ -343,3 +344,5 @@ function getSessionRange() {
     calculateRange(sessionsTimezones, "New York", "#USA", 3, "#56c51f");
 }
 
+setInterval(movePointer, 1000);
+setInterval(getSessionRange, 1000);
