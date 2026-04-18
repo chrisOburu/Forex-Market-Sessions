@@ -30,7 +30,7 @@ function getOffset(timeZone) {
   return hours + (hours < 0 ? -minutes : minutes) / 60;
 }
 
-export default function TimezoneSelector({ onOffsetChange }) {
+export default function TimezoneSelector({ onOffsetChange, onCityChange }) {
   const [region, setRegion] = useState(localRegion);
   const [city, setCity] = useState(localTz);
 
@@ -39,6 +39,7 @@ export default function TimezoneSelector({ onOffsetChange }) {
   // Set initial offset on mount
   useState(() => {
     onOffsetChange(getOffset(localTz));
+    onCityChange?.(localTz);
   });
 
   function handleRegionChange(e) {
@@ -48,6 +49,7 @@ export default function TimezoneSelector({ onOffsetChange }) {
     if (newCities.length) {
       setCity(newCities[0]);
       onOffsetChange(getOffset(newCities[0]));
+      onCityChange?.(newCities[0]);
     }
   }
 
@@ -55,6 +57,7 @@ export default function TimezoneSelector({ onOffsetChange }) {
     const tz = e.target.value;
     setCity(tz);
     onOffsetChange(getOffset(tz));
+    onCityChange?.(tz);
   }
 
   return (

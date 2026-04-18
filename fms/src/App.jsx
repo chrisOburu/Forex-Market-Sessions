@@ -6,6 +6,7 @@ import SessionCard from './components/SessionCard';
 import TimelineGrid from './components/TimelineGrid';
 //import HourLabels from './components/HourLabels';
 import { useTime, SESSIONS_TIMEZONES } from './hooks/useTime';
+import { tzToCountryCode } from './utils/tzCountry';
 import './App.css';
 
 import auFlag from './assets/au.svg';
@@ -32,6 +33,8 @@ function App() {
     return hours + (hours < 0 ? -minutes : minutes) / 60;
   });
   const time = useTime(offset);
+  const [selectedCity, setSelectedCity] = useState(() => Intl.DateTimeFormat().resolvedOptions().timeZone);
+  const countryCode = tzToCountryCode(selectedCity);
 
   return (
     <Paper
@@ -66,12 +69,13 @@ function App() {
           mb: 1,
         }}
       >
-        <TimezoneSelector offset={offset} onOffsetChange={setOffset} />
+        <TimezoneSelector offset={offset} onOffsetChange={setOffset} onCityChange={setSelectedCity} />
         <DigitalClock
           hour={time.hour}
           minutes={time.minutes}
           seconds={time.seconds}
           ampm={time.ampm}
+          countryCode={countryCode}
         />
       </Box>
 

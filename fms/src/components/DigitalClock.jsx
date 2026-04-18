@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
+import 'flag-icons/css/flag-icons.min.css';
 
-export default function DigitalClock({ hour, minutes, seconds, ampm }) {
+export default function DigitalClock({ hour, minutes, seconds, ampm, countryCode }) {
   const digitSx = {
     width: 100,
     height: 40,
@@ -43,12 +44,19 @@ export default function DigitalClock({ hour, minutes, seconds, ampm }) {
         <Box sx={digitSx}>{seconds}</Box>
         <Box sx={labelSx}>SS</Box>
       </Box>
-      <Box sx={{ textAlign: 'center', position: 'relative' }}>
+      <Box sx={{ textAlign: 'center', position: 'relative', }}>
+        {countryCode && (
+          <Box
+            component="span"
+            className={`fi fi-${countryCode.toLowerCase()}`}
+            sx={{ fontSize: 30, height: 30, display: 'block',}}
+          />
+        )}
         <Box
           sx={{
             position: 'absolute',
             bottom: 0,
-            width: 60,
+            width: 40,
             height: 30,
             fontSize: 20,
             bgcolor: 'green',
