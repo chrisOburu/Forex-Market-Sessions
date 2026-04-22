@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { SESSIONS_TIMEZONES, getIANAOffset } from '../hooks/useTime';
 import { isSessionOpen } from '../hooks/useTime';
 
@@ -20,16 +20,20 @@ function getSessionRange(sessionKey, userOffset) {
   return { start, end };
 }
 
-export default function TimelineGrid({ offset }) {
+export default function TimelineGrid({ offset, totalHeight = 490 }) {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('md'));
   const hours = Array.from({ length: 24 }, (_, i) => i);
-  const gridHeight = 470;
+  const visibleHours = isSmall ? hours.filter((h) => h % 2 === 0) : hours;
+  const cols = visibleHours.length;
+  const gridHeight = totalHeight - 20; // subtract 20px hour-label header
   const rowHeight = gridHeight / sessionsMeta.length;
 
   return (
     <Box sx={{ position: 'relative', label: 'TimelineGrid' }}>
       {/* Hour labels */}
       <Box sx={{ display: 'flex', label: 'HourLabels' }}>
-        {hours.map((h) => (
+        {visibleHours.map((h) => (
           <Box
             key={h}
             sx={{
@@ -49,7 +53,7 @@ export default function TimelineGrid({ offset }) {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(24, 1fr)',
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gap: '2px',
           bgcolor: 'rgb(7,7,7)',
           opacity: 0.3,
@@ -58,7 +62,7 @@ export default function TimelineGrid({ offset }) {
           label: 'GridCells',
         }}
       >
-        {hours.map((h) => (
+        {visibleHours.map((h) => (
           <Box
             key={h}
             sx={{
@@ -142,12 +146,12 @@ export default function TimelineGrid({ offset }) {
       })}
 
       {/* Current time pointer */}
-      <TimePointer offset={offset} />
+      <TimePointer offset={offset} gridHeight={gridHeight} />
     </Box>
   );
 }
 
-function TimePointer({ offset }) {
+function TimePointer({ offset, gridHeight }) {
   const now = new Date();
   const utcH = now.getUTCHours() + offset;
   const utcM = now.getUTCMinutes();
@@ -161,7 +165,7 @@ function TimePointer({ offset }) {
         top: 20,
         left: `${pct}%`,
         width: 2,
-        height: 470,
+        height: gridHeight,
         bgcolor: 'red',
         zIndex: 10,
       }}

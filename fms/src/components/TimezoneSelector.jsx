@@ -61,13 +61,13 @@ export default function TimezoneSelector({ onOffsetChange, onCityChange }) {
   }
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2 }}>
-      <Box sx={{ ml: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box>
         <Typography variant="h6" sx={{ fontFamily: 'cursive', mb: 1 }}>
           Time Zone Selector
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-          <FormControl size="small" sx={{ minWidth: 140 }}>
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+          <FormControl size="small" sx={{ minWidth: { xs: 110, sm: 140 }, flex: '1 1 auto' }}>
             <InputLabel sx={{ fontFamily: 'cursive' }}>Region</InputLabel>
             <Select
               value={region}
@@ -80,7 +80,7 @@ export default function TimezoneSelector({ onOffsetChange, onCityChange }) {
               ))}
             </Select>
           </FormControl>
-          <FormControl size="small" sx={{ minWidth: 180 }}>
+          <FormControl size="small" sx={{ minWidth: { xs: 140, sm: 180 }, flex: '1 1 auto' }}>
             <InputLabel sx={{ fontFamily: 'cursive' }}>City</InputLabel>
             <Select
               value={city}

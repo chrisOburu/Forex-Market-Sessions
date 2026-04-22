@@ -3,15 +3,15 @@ import 'flag-icons/css/flag-icons.min.css';
 
 export default function DigitalClock({ hour, minutes, seconds, ampm, countryCode }) {
   const digitSx = {
-    width: 100,
-    height: 40,
+    width: { xs: 60, sm: 80, md: 100 },
+    height: { xs: 30, sm: 35, md: 40 },
     bgcolor: 'slateblue',
     opacity: 0.8,
     color: 'white',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 50,
+    fontSize: { xs: 30, sm: 40, md: 50 },
     textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
     fontFamily: 'cursive',
   };
@@ -31,7 +31,7 @@ export default function DigitalClock({ hour, minutes, seconds, ampm, countryCode
   };
 
   return (
-    <Box sx={{ display: 'flex', gap: '5px' }}>
+    <Box sx={{ display: 'flex', gap: '5px'}}>
       <Box sx={{ textAlign: 'center', position: 'relative' }}>
         <Box sx={digitSx}>{hour}</Box>
         <Box sx={labelSx}>HH</Box>

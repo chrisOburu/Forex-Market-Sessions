@@ -14,8 +14,30 @@ export default function AnalogClock({ hourDeg, minDeg, secDeg, flagSrc }) {
   };
 
   return (
-    <Box
+    <>
+      {/* Standalone flag — xs/sm only */}
+      {flagSrc && (
+        <Box
+          component="img"
+          src={flagSrc}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            borderRadius: '50%',
+            width: "50%",
+            height: "50%",
+            objectFit: 'cover',
+            opacity: 0.9,
+            flexShrink: 0,
+            ml: "auto",
+            mr: "auto",
+          }}
+        />
+      )}
+
+      {/* Full analog clock — md+ only */}
+      <Box
       sx={{
+        display: { xs: 'none', md: 'block' },
         width: clockSize,
         height: clockSize,
         borderRadius: '50%',
@@ -24,83 +46,89 @@ export default function AnalogClock({ hourDeg, minDeg, secDeg, flagSrc }) {
         boxShadow: '1px 1px 4px rgba(0,0,0,.7)',
         position: 'relative',
         flexShrink: 0,
+        label: 'AnalogClock',
       }}
     >
-      {/* Numbers */}
-      {[
-        { label: '12', top: 6, left: '50%', transform: 'translateX(-50%)' },
-        { label: '3', right: 6, top: '50%', transform: 'translateY(-50%)' },
-        { label: '6', bottom: 6, left: '50%', transform: 'translateX(-50%)' },
-        { label: '9', left: 6, top: '50%', transform: 'translateY(-50%)' },
-      ].map((n) => (
+      {/* Numbers, hands, center dot — hidden on xs/sm */}
+      <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'absolute', width: '100%', height: '100%', top: 0, left: 0 }}>
+        {/* Numbers */}
+        {[
+          { label: '12', top: 6, left: '50%', transform: 'translateX(-50%)' },
+          { label: '3', right: 6, top: '50%', transform: 'translateY(-50%)' },
+          { label: '6', bottom: 6, left: '50%', transform: 'translateX(-50%)' },
+          { label: '9', left: 6, top: '50%', transform: 'translateY(-50%)' },
+        ].map((n) => (
+          <Box
+            key={n.label}
+            sx={{
+              position: 'absolute',
+              fontSize: 10,
+              fontWeight: 'bold',
+              color: 'rgb(240,240,140)',
+              textShadow: '1px 1px 2px rgba(0,0,0,.7)',
+              zIndex: 3,
+              top: n.top,
+              left: n.left,
+              right: n.right,
+              label: `AnalogClockNumber-${n.label}`,
+
+              bottom: n.bottom,
+              transform: n.transform,
+            }}
+          >
+            {n.label}
+          </Box>
+        ))}
+
+        {/* Center dot */}
         <Box
-          key={n.label}
           sx={{
             position: 'absolute',
-            fontSize: 10,
-            fontWeight: 'bold',
-            color: 'rgb(240,240,140)',
-            textShadow: '1px 1px 2px rgba(0,0,0,.7)',
-            zIndex: 3,
-            top: n.top,
-            left: n.left,
-            right: n.right,
-            bottom: n.bottom,
-            transform: n.transform,
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 15,
+            height: 15,
+            bgcolor: 'darkgreen',
+            borderRadius: '50%',
+            zIndex: 4,
           }}
-        >
-          {n.label}
-        </Box>
-      ))}
+        />
 
-      {/* Center dot */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 15,
-          height: 15,
-          bgcolor: 'darkgreen',
-          borderRadius: '50%',
-          zIndex: 4,
-        }}
-      />
-
-      {/* Hour hand */}
-      <Box
-        sx={{
-          ...arrowBase,
-          width: 5,
-          height: 30,
-          bgcolor: 'white',
-          ml: '-2.5px',
-          transform: `rotate(${hourDeg}deg)`,
-        }}
-      />
-      {/* Minute hand */}
-      <Box
-        sx={{
-          ...arrowBase,
-          width: 5,
-          height: 40,
-          bgcolor: 'white',
-          ml: '-2.5px',
-          transform: `rotate(${minDeg}deg)`,
-        }}
-      />
-      {/* Second hand */}
-      <Box
-        sx={{
-          ...arrowBase,
-          width: 5,
-          height: 40,
-          bgcolor: 'goldenrod',
-          ml: '-2.5px',
-          transform: `rotate(${secDeg}deg)`,
-        }}
-      />
+        {/* Hour hand */}
+        <Box
+          sx={{
+            ...arrowBase,
+            width: 5,
+            height: 30,
+            bgcolor: 'white',
+            ml: '-2.5px',
+            transform: `rotate(${hourDeg}deg)`,
+          }}
+        />
+        {/* Minute hand */}
+        <Box
+          sx={{
+            ...arrowBase,
+            width: 5,
+            height: 40,
+            bgcolor: 'white',
+            ml: '-2.5px',
+            transform: `rotate(${minDeg}deg)`,
+          }}
+        />
+        {/* Second hand */}
+        <Box
+          sx={{
+            ...arrowBase,
+            width: 5,
+            height: 40,
+            bgcolor: 'goldenrod',
+            ml: '-2.5px',
+            transform: `rotate(${secDeg}deg)`,
+          }}
+        />
+      </Box>
 
       {/* Flag */}
       {flagSrc && (
@@ -121,5 +149,6 @@ export default function AnalogClock({ hourDeg, minDeg, secDeg, flagSrc }) {
         />
       )}
     </Box>
+    </>
   );
 }
