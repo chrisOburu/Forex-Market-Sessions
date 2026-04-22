@@ -96,7 +96,6 @@ function App() {
             flexDirection: { xs: "column", md: "row" },
             justifyContent: { xs: "center", md: "space-between" },
             alignItems: "center",
-            pr: { xs: 0, md: "50px" },
             gap: { xs: 2, md: 0 },
             mb: 1,
             width: "100%",
