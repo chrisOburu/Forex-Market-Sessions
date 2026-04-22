@@ -63,7 +63,7 @@ function App() {
         mt: "30px",
         borderRadius: "10px",
         p: "10px",
-        fontFamily: "cursive",
+        // fontFamily: "cursive",
         position: "relative",
         // bgcolor: '#f8f4f4',
         label: "AppContainer",
@@ -82,7 +82,7 @@ function App() {
             textAlign: "center",
             mt: 1,
             fontWeight: "bold",
-            fontFamily: "cursive",
+            //fontFamily: "cursive",
             width: "100%",
           }}
         >

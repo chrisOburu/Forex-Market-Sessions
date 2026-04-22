@@ -63,17 +63,17 @@ export default function TimezoneSelector({ onOffsetChange, onCityChange }) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box>
-        <Typography variant="h6" sx={{ fontFamily: 'cursive', mb: 1 }}>
+        <Typography variant="h6" sx={{ mb: 1 }}>
           Time Zone Selector
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
           <FormControl size="small" sx={{ minWidth: { xs: 110, sm: 140 }, flex: '1 1 auto' }}>
-            <InputLabel sx={{ fontFamily: 'cursive' }}>Region</InputLabel>
+            <InputLabel >Region</InputLabel>
             <Select
               value={region}
               label="Region"
               onChange={handleRegionChange}
-              sx={{ fontFamily: 'cursive' }}
+              // sx={{ fontFamily: 'cursive' }}
             >
               {regionOptions.map((r) => (
                 <MenuItem key={r} value={r}>{r}</MenuItem>
@@ -81,12 +81,12 @@ export default function TimezoneSelector({ onOffsetChange, onCityChange }) {
             </Select>
           </FormControl>
           <FormControl size="small" sx={{ minWidth: { xs: 140, sm: 180 }, flex: '1 1 auto' }}>
-            <InputLabel sx={{ fontFamily: 'cursive' }}>City</InputLabel>
+            <InputLabel >City</InputLabel>
             <Select
               value={city}
               label="City"
               onChange={handleCityChange}
-              sx={{ fontFamily: 'cursive' }}
+              // sx={{ fontFamily: 'cursive' }}
             >
               {cities.map((tz) => (
                 <MenuItem key={tz} value={tz}>

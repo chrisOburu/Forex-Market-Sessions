@@ -40,7 +40,7 @@ export default function TimelineGrid({ offset, totalHeight = 490 }) {
               flex: '1 1 0',
               textAlign: 'left',
               fontSize: 12,
-              fontFamily: 'cursive',
+              //fontFamily: 'cursive',
               lineHeight: '20px',
             }}
           >
@@ -136,7 +136,7 @@ export default function TimelineGrid({ offset, totalHeight = 490 }) {
               justifyContent: 'center',
               color: 'white',
               fontWeight: 'bold',
-              fontFamily: 'cursive',
+              //fontFamily: 'cursive',
               fontSize: 13,
             }}
           >

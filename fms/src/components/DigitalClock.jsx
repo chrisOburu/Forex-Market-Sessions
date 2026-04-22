@@ -13,7 +13,7 @@ export default function DigitalClock({ hour, minutes, seconds, ampm, countryCode
     alignItems: 'center',
     fontSize: { xs: 30, sm: 40, md: 50 },
     textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-    fontFamily: 'cursive',
+    //fontFamily: 'cursive',
   };
 
   const labelSx = {
@@ -27,7 +27,7 @@ export default function DigitalClock({ hour, minutes, seconds, ampm, countryCode
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: 'cursive',
+    //fontFamily: 'cursive',
   };
 
   return (
@@ -64,7 +64,7 @@ export default function DigitalClock({ hour, minutes, seconds, ampm, countryCode
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontFamily: 'cursive',
+            //fontFamily: 'cursive',
           }}
         >
           {ampm}
